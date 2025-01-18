@@ -1,32 +1,56 @@
 <script setup>
-import { ref } from 'vue'
+import { ref, shallowRef, markRaw } from 'vue'
 import { VueDraggable } from 'vue-draggable-plus'
 
-const elements = ref([
+import BlockText from "@/components/BlockText.vue";
+import BlockImage from "@/components/BlockImage.vue";
+import IconHandle from "@/components/Icons/IconHandle.vue";
+
+const blocks = [
     {
         id: '1',
-        name: 'Text',
+        name: 'text',
+        label: 'Text',
+        component: BlockText
     },
     {
         id: '2',
-        name: 'Image'
+        name: 'image',
+        label: 'Image',
+        component: BlockImage
     }
-])
+]
 
 const sections = ref([])
 
-function clone(element) {
+function clone(block) {
     const len = sections.value.length
     return {
         id: new Date().getTime(),
-        elements: [
+        blocks: [
             {
-                name: `${element.name}-clone-${len}`,
-                id: `${element.id}-clone-${len}`
+                id: `${block.name}-clone-${len}`,
+                label: `${block.label}-clone-${len}`,
+                component: markRaw(block.component),
+                content: ""
             }
         ]
 
     }
+}
+
+const images =  ['one', 'two', 'three', 'four'];
+const selecting = ref(false)
+
+const sectionIndex = ref(null);
+const setSection = (index) => {
+    sectionIndex.value = index;
+    selecting.value = true;
+}
+
+const selectImage = (el) => {
+    sections.value[sectionIndex.value].blocks[0].content = el;
+    selecting.value = false;
 }
 </script>
 
@@ -34,19 +58,19 @@ function clone(element) {
     <div class="builder">
         <div class="builder-left">
             <VueDraggable
-                v-model="elements"
+                v-model="blocks"
                 :animation="150"
-                :group="{ name: 'elements', pull: 'clone', put: false }"
+                :group="{ name: 'blocks', pull: 'clone', put: false }"
                 :clone="clone"
                 :sort="false"
-                class="elements-area flex flex-col gap-2 p-4 w-300px bg-gray-500/5 rounded"
+                class="blocks-area flex flex-col gap-2 p-4 w-300px bg-gray-500/5 rounded"
             >
                 <div
-                    v-for="item in elements"
-                    :key="item.id"
+                    v-for="block in blocks"
+                    :key="block.id"
                     class="cursor-move h-50px bg-gray-500/5 rounded p-3 item"
                 >
-                    {{ item.name }}
+                    {{ block.label }}
                 </div>
             </VueDraggable>
         </div>
@@ -54,18 +78,28 @@ function clone(element) {
             <VueDraggable
                 v-model="sections"
                 :animation="150"
-                group="elements"
+                group="blocks"
                 ghostClass="ghost"
+                handle=".handle"
                 class="page-area flex flex-col gap-2 p-4 w-300px max-h-350px m-auto bg-gray-500/5 rounded overflow-auto"
             >
                 <div
-                    v-for="section in sections"
+                    v-for="(section, index) in sections"
                     :key="section.id"
                     class="cursor-move h-50px bg-gray-500/5 rounded p-3 item section"
                 >
-                    <p>{{ section.elements[0].name }}</p>
+                    <IconHandle class="handle cursor-move" />
+                    <component
+                        :is="section.blocks[0].component"
+                        v-model:content="section.blocks[0].content"
+                        @select="setSection(index)"
+                    />
                 </div>
             </VueDraggable>
+
+            <div v-if="selecting" class="images">
+                <span v-for="(image, index) in images" :key="index" class="image" @click="selectImage(image)">Image {{ image }}</span>
+            </div>
         </div>
     </div>
 </template>
@@ -90,7 +124,7 @@ function clone(element) {
         background-color: #ffffff;
 
         .item {
-            background-color: darkorange !important;
+            background-color: blanchedalmond !important;
         }
     }
 
@@ -104,7 +138,7 @@ function clone(element) {
         color: #181818;
     }
 
-    .elements-area {
+    .blocks-area {
         border: 1px dashed black;
         padding: 40px;
     }
@@ -122,15 +156,29 @@ function clone(element) {
     }
 
     .section {
-        border: 1.5px dashed black;
+        border: 1px solid orange;
         padding: 20px 60px;
         width: 400px;
 
-        p {
-            background-color: #fff;
-            padding: 5px;
-            margin: 0;
+        &:hover {
+            border-color: black;
         }
     }
 }
+
+.images {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+
+    .image {
+        margin-right: 10px;
+        padding: 10px;
+        background-color: #000;
+        color: #fff;
+        font-size: 10px;
+        cursor: pointer;
+    }
+}
+
+
 </style>
