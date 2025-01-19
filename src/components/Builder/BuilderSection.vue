@@ -24,15 +24,15 @@ defineProps({
     padding-bottom: 20px;
 
     &:not(:last-child) {
-        border-bottom: 1px solid #ccc;
+        border-bottom: 1px solid #9ca3af30;
     }
 
     h5 {
         font-weight: 600;
         text-transform: uppercase;
-        letter-spacing: 1px;
+        letter-spacing: 0.5px;
         font-size: 12px;
-        color: #0d0C22;
+        color: #006C4C;
         margin-bottom: 10px;
     }
 }

@@ -13,12 +13,12 @@
                     />
                 </div>
             </div>
-            <button @click="save" class="px-6 py-2 text-white bg-[#0d0c22] rounded-lg shadow-md hover:translate-y-[-2px] hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-[#0d0c22] active:translate-y-[1px] transition-transform duration-150">
+            <button @click="save" class="px-6 py-2 text-white bg-[#006C4C] rounded-full shadow-md hover:translate-y-[-2px] hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-[#0d0c22] active:translate-y-[1px] transition-transform duration-150">
                 Save
             </button>
         </nav>
         <div class="builder-layout-content h-[calc(100%-70px)]">
-            <aside class="builder-panel">
+            <aside class="builder-panel border-r border-gray:50">
                 <BuilderBlocks />
                 <BuilderSettings />
             </aside>
@@ -67,15 +67,14 @@ const save = () => {
 
     .builder-panel {
         height: 100%;
-        padding: 30px 15px;
+        padding: 20px 15px;
         background-color: #fff;
-        border-right: 1px solid #f6f6f6;
         overflow-y: auto;
     }
 
     .builder-canvas {
         background-color: #f5f7fa;
-        padding: 30px;
+        padding: 20px 30px;
         overflow-y: auto;
     }
 

@@ -11,7 +11,7 @@
         >
             <div v-for="block in blocks" :key="block.id" class="block">
                 <component :is="block.icon" />
-                <span>{{ block.label }}</span>
+                <span class="text-xs font-medium mt-1">{{ block.label }}</span>
             </div>
         </VueDraggable>
     </BuilderSection>
@@ -70,17 +70,13 @@ function clone(block, content) {
     .block {
         height: 80px;
         width: 100%;
-        background-color: #f4f4f4;
+        background-color: #f0f3f6;
         border-radius: 4px;
         display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: center;
         cursor: move !important;
-
-        span {
-            font-size: 12px;
-        }
     }
 
     @media (max-width: 1024px) {

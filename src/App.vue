@@ -4,19 +4,15 @@ import { useRoute } from "vue-router";
 
 import BlankLayout from "@/layouts/BlankLayout.vue";
 import BuilderLayout from "@/layouts/BuilderLayout.vue";
-import DashboardLayout from "@/layouts/DashboardLayout.vue";
 
 const route = useRoute();
 const layout = computed(() => {
     const routeLayout = route && route.meta && route.meta.layout;
-    switch (routeLayout) {
-        case "builder":
-            return BuilderLayout;
-        case "dashboard":
-            return DashboardLayout
-        default:
-            return BlankLayout
-    }
+
+    if (routeLayout === 'builder') {
+        return BuilderLayout;
+    };
+    return BlankLayout;
 });
 
 </script>
@@ -24,19 +20,15 @@ const layout = computed(() => {
 <template>
     <main>
         <component :is="layout">
-            <RouterView v-slot="{ Component }">
-                <transition name="fade" mode="out-in">
-                    <component :is="Component" />
-                </transition>
-            </RouterView>
+            <RouterView v-slot="{ Component }" />
         </component>
     </main>
 </template>
 
-<style>
+<style scoped>
 .fade-enter-active,
 .fade-leave-active {
-    transition: opacity 0.3s;
+    transition: opacity 10s;
 }
 .fade-enter,
 .fade-leave-to {
