@@ -114,7 +114,6 @@ const remove = (index) => {
 
 const store = useAppStore();
 watch(() => blocks, () => {
-    console.log("Changed")
     store.updatePageBlocks(blocks.value)
 }, { deep: true })
 </script>

@@ -35,8 +35,8 @@ export default defineComponent({
     position: relative;
     outline: none;
     box-shadow: none;
-    border: 1.5px solid transparent;
-    height: 300px;
+    border: 1px solid transparent;
+    height: 220px;
     width: 100%;
     border-radius: 4px;
     background-color: #f3f4f5;

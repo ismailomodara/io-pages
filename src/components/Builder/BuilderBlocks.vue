@@ -82,6 +82,10 @@ function clone(block, content) {
             font-size: 12px;
         }
     }
+
+    @media (max-width: 1024px) {
+        grid-template-columns: 1fr 1fr;
+    }
 }
 
 .ghost {

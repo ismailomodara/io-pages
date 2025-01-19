@@ -1,15 +1,23 @@
 <template>
     <div class="builder-layout">
-        <nav class="builder-layout-nav">
-            <div>
-                <IconArrowBack />
-                <p>Landing Page Name</p>
+        <nav class="builder-layout-nav flex justify-between items-center h-[70px] bg-white px-4 md:px-6 border-b border-gray:50">
+            <div class="flex items-center">
+                <IconArrowBack class="mr-4" />
+                <div class="flex flex-col">
+                    <input
+                        v-model="name"
+                        type="text"
+                        placeholder="Type something..."
+                        class="px-0 py-2 bg-transparent rounded-md border-none focus:outline-none focus:ring-0 hover:bg-transparent font-medium"
+                        @blur="saveName"
+                    />
+                </div>
             </div>
-            <div>
-                <button @click="save">Save</button>
-            </div>
+            <button @click="save" class="px-6 py-2 text-white bg-[#0d0c22] rounded-lg shadow-md hover:translate-y-[-2px] hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-[#0d0c22] active:translate-y-[1px] transition-transform duration-150">
+                Save
+            </button>
         </nav>
-        <div class="builder-layout-content">
+        <div class="builder-layout-content h-[calc(100%-70px)]">
             <aside class="builder-panel">
                 <BuilderBlocks />
                 <BuilderSettings />
@@ -22,6 +30,7 @@
 </template>
 
 <script setup>
+import { ref } from "vue";
 import IconArrowBack from "@/components/Icons/IconArrowBack.vue";
 
 import BuilderBlocks from "@/components/Builder/BuilderBlocks.vue";
@@ -31,6 +40,10 @@ import { useAppStore } from "@/stores/app.ts";
 
 const store = useAppStore();
 
+const name = ref("Sunflower Sunset")
+const saveName = () => {
+    store.updatePageSettings({ name: name.value })
+}
 const save = () => {
     console.log(store.page);
 }
@@ -42,19 +55,9 @@ const save = () => {
     width: 100vw;
     background-color: #f5f7fa;
     overflow-y: hidden;
-
-    &-nav {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        height: 80px;
-        padding: 0 40px;
-        background-color: #fff;
-        border-bottom: 1px solid #28282820;
-    }
+    position: relative;
 
     &-content {
-        height: calc(100vh - 80px);
         width: 100%;
         background-color: #f5f7fa;
         display: grid;
@@ -74,6 +77,31 @@ const save = () => {
         background-color: #f5f7fa;
         padding: 30px;
         overflow-y: auto;
+    }
+
+    @media (max-width: 1024px) {
+        &-content {
+            grid-template-columns: 250px 1fr;
+        }
+    }
+
+    @media (max-width: 600px) {
+        &-content {
+            grid-template-columns: 1fr;
+            padding-bottom: 20vh;
+        }
+
+        .builder-panel {
+            position: fixed;
+            z-index: 1;
+            bottom: 40px;
+            right: 40px;
+            height: 20vh;
+            width: 80%;
+            box-shadow: -4px 16px 25px rgba(0, 0, 0, 0.08);
+            border-radius: 8px;
+            border: 1px solid #000;
+        }
     }
 }
 </style>
