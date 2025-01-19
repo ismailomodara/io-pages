@@ -1,5 +1,4 @@
 <template>
-    <!-- General Settings -->
     <BuilderSection title="General">
         <div class="flex flex-col mb-3">
             <label class="text-sm mb-1">Font Family</label>
@@ -21,19 +20,21 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
+import {ref, watch} from "vue";
 import BuilderSection from "@/components/Builder/BuilderSection.vue";
 
+import { useAppStore } from "@/stores/app.ts";
+const store = useAppStore();
+
 const settings = ref({
-    font: "Figtree",
-    paddingX: 40,
-    paddingY: 40,
+    font: store.page.font,
+    paddingX: store.page.paddingX,
+    paddingY: store.page.paddingY
 })
 
-function toggleDropdown() {
-    const dropdownMenu = document.getElementById("dropdownMenu");
-    dropdownMenu.classList.toggle("hidden");
-}
+watch(settings, () => {
+    store.updatePageData(settings.value);
+}, { deep: true })
 </script>
 
 <style lang="scss" scoped></style>

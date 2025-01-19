@@ -6,7 +6,7 @@ import { createRouter, createWebHistory } from 'vue-router';
 
 const Error = () => import('@/pages/error.vue');
 const Home = () => import('@/pages/index.vue');
-const PagesBuilder = () => import('@/pages/pages/builder.vue');
+const Build = () => import('@/pages/build.vue');
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -32,7 +32,7 @@ const router = createRouter({
     {
       path: '/pages/build',
       name: 'pages.build',
-      component: PagesBuilder,
+      component: Build,
       meta: {
         layout: "builder"
       }

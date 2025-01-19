@@ -2,27 +2,27 @@
     <div class="builder-layout">
         <nav class="builder-layout-nav flex justify-between items-center h-[70px] bg-white px-4 md:px-6 border-b border-gray:50">
             <div class="flex items-center">
-                <IconArrowBack class="mr-4" />
+                <IconArrowBack class="mr-4 cursor-pointer" tabindex="1" @click="$router.push({ name: 'index' })" />
                 <div class="flex flex-col">
                     <input
-                        v-model="name"
+                        v-model="title"
                         type="text"
-                        placeholder="Type something..."
+                        placeholder="Enter page title..."
                         class="px-0 py-2 bg-transparent rounded-md border-none focus:outline-none focus:ring-0 hover:bg-transparent font-medium"
-                        @blur="saveName"
+                        @blur="saveTitle"
                     />
                 </div>
             </div>
-            <button @click="save" class="px-6 py-2 text-white bg-[#006C4C] rounded-full shadow-md hover:translate-y-[-2px] hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-[#0d0c22] active:translate-y-[1px] transition-transform duration-150">
+            <button @click="save" class="px-6 py-2 text-white bg-[#006C4C] rounded-full shadow-md hover:translate-y-[-2px] hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-[#006C4C] active:translate-y-[1px] transition-transform duration-150">
                 Save
             </button>
         </nav>
-        <div class="builder-layout-content h-[calc(100%-70px)]">
-            <aside class="builder-panel border-r border-gray:50">
+        <div class="builder-layout-content w-100% h-[calc(100%-70px)]">
+            <aside class="builder-panel py-5 px-4 overflow-y-auto h-100% bg-white border-r border-gray:50">
                 <BuilderBlocks />
                 <BuilderSettings />
             </aside>
-            <div class="builder-canvas">
+            <div class="builder-canvas py-5 px-8 overflow-y-auto">
                 <RouterView />
             </div>
         </div>
@@ -31,21 +31,21 @@
 
 <script setup>
 import { ref } from "vue";
+
 import IconArrowBack from "@/components/Icons/IconArrowBack.vue";
 
 import BuilderBlocks from "@/components/Builder/BuilderBlocks.vue";
 import BuilderSettings from "@/components/Builder/BuilderSettings.vue";
 
 import { useAppStore } from "@/stores/app.ts";
-
 const store = useAppStore();
 
-const name = ref("Sunflower Sunset")
-const saveName = () => {
-    store.updatePageSettings({ name: name.value })
+const title = ref(store.page.title)
+const saveTitle = () => {
+    store.updatePageData({ title: title.value })
 }
 const save = () => {
-    console.log(store.page);
+    console.log(store.page)
 }
 </script>
 
@@ -53,29 +53,14 @@ const save = () => {
 .builder-layout {
     height: 100vh;
     width: 100vw;
-    background-color: #f5f7fa;
+    background-color: var(--background);
     overflow-y: hidden;
     position: relative;
 
     &-content {
-        width: 100%;
-        background-color: #f5f7fa;
         display: grid;
         grid-template-columns: 300px 1fr;
         overflow-y: hidden;
-    }
-
-    .builder-panel {
-        height: 100%;
-        padding: 20px 15px;
-        background-color: #fff;
-        overflow-y: auto;
-    }
-
-    .builder-canvas {
-        background-color: #f5f7fa;
-        padding: 20px 30px;
-        overflow-y: auto;
     }
 
     @media (max-width: 1024px) {
