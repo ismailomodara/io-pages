@@ -1,26 +1,20 @@
 <template>
-    <aside>
-        <!-- Blocks -->
-        <BuilderSection title="Blocks">
-            <VueDraggable
-                v-model="blocks"
-                :animation="150"
-                :group="{ name: 'blocks', pull: 'clone', put: false }"
-                :clone="clone"
-                :sort="false"
-                class="blocks"
-            >
-                <div v-for="block in blocks" :key="block.id" class="block">
-                    <component :is="block.icon" />
-                    <span>{{ block.label }}</span>
-                </div>
-            </VueDraggable>
-        </BuilderSection>
-
-
-        <!-- General Settings -->
-        <BuilderSection title="General" />
-    </aside>
+    <!-- Blocks -->
+    <BuilderSection title="Blocks">
+        <VueDraggable
+            v-model="blocks"
+            :animation="150"
+            :group="{ name: 'blocks', pull: 'clone', put: false }"
+            :clone="clone"
+            :sort="false"
+            class="blocks"
+        >
+            <div v-for="block in blocks" :key="block.id" class="block">
+                <component :is="block.icon" />
+                <span>{{ block.label }}</span>
+            </div>
+        </VueDraggable>
+    </BuilderSection>
 </template>
 
 <script setup>
@@ -41,14 +35,16 @@ const blocks = [
         name: 'text',
         label: 'Text',
         component: BlockText,
-        icon: IconText
+        icon: IconText,
+        actions: []
     },
     {
         id: '2',
         name: 'image',
         label: 'Image',
         component: BlockImage,
-        icon: IconImage
+        icon: IconImage,
+        actions: ['edit']
     }
 ]
 
@@ -58,17 +54,7 @@ function clone(block, content) {
         label: block.label,
         name: block.name,
         component: markRaw(block.component),
-        content: content ?? "",
-        blocks: [
-            {
-                id: new Date().getTime(),
-                label: block.label,
-                name: block.name,
-                component: markRaw(block.component),
-                content: content ?? ""
-            }
-        ]
-
+        content: content ?? ""
     }
 }
 
@@ -97,6 +83,7 @@ function clone(block, content) {
         }
     }
 }
+
 .ghost {
     border: 1.5px dashed #0d0C22;
     background-color: #f3f3f6;

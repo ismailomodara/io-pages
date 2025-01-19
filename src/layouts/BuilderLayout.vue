@@ -10,7 +10,10 @@
             </div>
         </nav>
         <div class="builder-layout-content">
-            <BuilderPanel class="builder-panel" />
+            <aside class="builder-panel">
+                <BuilderBlocks />
+                <BuilderSettings />
+            </aside>
             <div class="builder-canvas">
                 <RouterView />
             </div>
@@ -20,7 +23,9 @@
 
 <script setup>
 import IconArrowBack from "@/components/Icons/IconArrowBack.vue";
-import BuilderPanel from "@/components/Builder/BuilderPanel.vue";
+
+import BuilderBlocks from "@/components/Builder/BuilderBlocks.vue";
+import BuilderSettings from "@/components/Builder/BuilderSettings.vue";
 </script>
 
 <style lang="scss" scoped>

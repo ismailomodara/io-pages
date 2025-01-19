@@ -38,7 +38,7 @@ export default defineComponent({
 <style lang="scss" scoped>
 .block-text {
     padding: 10px 0;
-    color: #0d0C22;
+    color: #515856;
     background-color: transparent;
     font-size: 16px;
     outline: none;

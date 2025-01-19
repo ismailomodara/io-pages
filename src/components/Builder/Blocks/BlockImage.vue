@@ -1,13 +1,15 @@
 <template>
     <div ref="blockImage" class="block-image">
-        <p>Image Element - <span v-if="content">{{ content }}</span></p>
-        <div v-if="!content">
-            <p>Please select an image</p>
-            <button type="button" @click="$emit('select')">Select </button>
+        <div v-if="!content" class="block-image-empty">
+            <img src="@/assets/placeholder-drag-v2.svg" alt="Drag" />
+            <button type="button" @click="$emit('action', 'image')">Click here to add an image </button>
         </div>
-        <div v-if="content" class="block-image-change" @click="$emit('select')">
-            <p>Change image</p>
-        </div>
+        <template v-if="content">
+            <div>Image {{ content }}</div>
+            <div class="block-image-change" @click="$emit('action', 'image')">
+                <p>Change image</p>
+            </div>
+        </template>
     </div>
 </template>
 
@@ -18,30 +20,13 @@ export default defineComponent({
     name: "BlockImage",
 
     props: {
-        editing: {
-            type: Boolean,
-            default: true
-        },
         content: {
             type: String,
             default: ""
         }
     },
 
-    emits: ["update:content", "select"],
-
-    data() {
-        return {
-            images: ['one', 'two', 'three', 'four'],
-            image: ""
-        }
-    },
-
-    methods: {
-        setImage(imageId) {
-            this.$emit("update:content", imageId);
-        }
-    }
+    emits: ["action"],
 })
 </script>
 
@@ -51,9 +36,27 @@ export default defineComponent({
     outline: none;
     box-shadow: none;
     border: 1.5px solid transparent;
+    height: 300px;
+    width: 100%;
+    border-radius: 4px;
+    background-color: #f3f4f5;
+
+    &-empty {
+        height: 100%;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
+        img {
+            height: 80px;
+            margin-bottom: 10px;
+        }
+    }
 
     &:hover {
-        border-color: #0d0C22;
+        border-color: #EAECED;
     }
 
     &-change {
