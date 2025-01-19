@@ -1,6 +1,6 @@
 <template>
     <div ref="blockText" class="block-text" :contenteditable="true" @blur="blur">
-        <p>{{ content || "Enter text here" }}</p>
+        <p>{{ content || "Write whatever text you want here." }}</p>
     </div>
 </template>
 
@@ -37,8 +37,8 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 .block-text {
-    padding: 10px 30px;
-    color: #000;
+    padding: 10px 0;
+    color: #0d0C22;
     background-color: transparent;
     font-size: 16px;
     outline: none;
@@ -46,13 +46,10 @@ export default defineComponent({
     width: 100%;
     margin: auto;
     border: 1.5px solid transparent;
-
-    &:focus {
-        border-color: #000;
-    }
+    border-radius: 4px;
 
     &:hover {
-        border-color: #000;
+        //border-color: #0d0C2220;
     }
 }
 </style>

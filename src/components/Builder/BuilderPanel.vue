@@ -1,44 +1,54 @@
 <template>
     <aside>
-        <h5>Blocks</h5>
-        <VueDraggable
-            v-model="blocks"
-            :animation="150"
-            :group="{ name: 'blocks', pull: 'clone', put: false }"
-            :clone="clone"
-            :sort="false"
-            class="blocks"
-        >
-            <div
-                v-for="block in blocks"
-                :key="block.id"
-                class="cursor-move h-50px bg-gray-500/5 rounded p-3 item"
+        <!-- Blocks -->
+        <BuilderSection title="Blocks">
+            <VueDraggable
+                v-model="blocks"
+                :animation="150"
+                :group="{ name: 'blocks', pull: 'clone', put: false }"
+                :clone="clone"
+                :sort="false"
+                class="blocks"
             >
-                {{ block.label }}
-            </div>
-        </VueDraggable>
+                <div v-for="block in blocks" :key="block.id" class="block">
+                    <component :is="block.icon" />
+                    <span>{{ block.label }}</span>
+                </div>
+            </VueDraggable>
+        </BuilderSection>
+
+
+        <!-- General Settings -->
+        <BuilderSection title="General" />
     </aside>
 </template>
 
 <script setup>
+import { markRaw } from "vue";
 import { VueDraggable } from 'vue-draggable-plus'
 
-import BlockText from "@/components/BlockText.vue";
-import BlockImage from "@/components/BlockImage.vue";
-import { markRaw } from "vue";
+import BlockText from "@/components/Builder/Blocks/BlockText.vue";
+import BlockImage from "@/components/Builder/Blocks/BlockImage.vue";
+
+import IconText from "@/components/Icons/IconText.vue";
+import IconImage from "@/components/Icons/IconImage.vue";
+
+import BuilderSection from "@/components/Builder/BuilderSection.vue";
 
 const blocks = [
     {
         id: '1',
         name: 'text',
         label: 'Text',
-        component: BlockText
+        component: BlockText,
+        icon: IconText
     },
     {
         id: '2',
         name: 'image',
         label: 'Image',
-        component: BlockImage
+        component: BlockImage,
+        icon: IconImage
     }
 ]
 
@@ -68,21 +78,29 @@ function clone(block, content) {
 <style lang="scss" scoped>
 .blocks {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-gap: 20px;
-}
-.item {
-    background-color: aquamarine;
-    padding: 10px;
-    font-size: 20px;
-    font-weight: 500;
-    color: #181818;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 10px;
+
+    .block {
+        height: 80px;
+        width: 100%;
+        background-color: #f4f4f4;
+        border-radius: 4px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        cursor: move !important;
+
+        span {
+            font-size: 12px;
+        }
+    }
 }
 .ghost {
-    background-color: #0000ff20 !important;
-    border: 1.5px dashed #00f;
+    border: 1.5px dashed #0d0C22;
+    background-color: #f3f3f6;
     width: 100%;
-    min-height: 250px;
     opacity: 1 !important;
 }
 </style>

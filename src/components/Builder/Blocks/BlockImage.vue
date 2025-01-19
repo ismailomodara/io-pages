@@ -53,7 +53,7 @@ export default defineComponent({
     border: 1.5px solid transparent;
 
     &:hover {
-        border-color: #000;
+        border-color: #0d0C22;
     }
 
     &-change {

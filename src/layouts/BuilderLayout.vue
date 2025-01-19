@@ -27,7 +27,7 @@ import BuilderPanel from "@/components/Builder/BuilderPanel.vue";
 .builder-layout {
     height: 100vh;
     width: 100vw;
-    background-color: #f8f8f8;
+    background-color: #f5f7fa;
     overflow-y: hidden;
 
     &-nav {
@@ -43,7 +43,7 @@ import BuilderPanel from "@/components/Builder/BuilderPanel.vue";
     &-content {
         height: calc(100vh - 80px);
         width: 100%;
-        background-color: #f8f8f8;
+        background-color: #f5f7fa;
         display: grid;
         grid-template-columns: 300px 1fr;
         overflow-y: hidden;
@@ -58,7 +58,7 @@ import BuilderPanel from "@/components/Builder/BuilderPanel.vue";
     }
 
     .builder-canvas {
-        background-color: #f8f8f8;
+        background-color: #f5f7fa;
         padding: 30px;
         overflow-y: auto;
     }
