@@ -30,7 +30,7 @@ export default defineComponent({
     },
 
     mounted() {
-        this.$refs.text.focus()
+        this.$refs.blockText.focus()
     }
 })
 </script>

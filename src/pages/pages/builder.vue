@@ -5,6 +5,8 @@ import { VueDraggable } from 'vue-draggable-plus'
 import BlockText from "@/components/BlockText.vue";
 import BlockImage from "@/components/BlockImage.vue";
 import IconHandle from "@/components/Icons/IconHandle.vue";
+import IconDuplicate from "@/components/Icons/IconDuplicate.vue";
+import IconDelete from "@/components/Icons/IconDelete.vue";
 
 const blocks = [
     {
@@ -23,7 +25,7 @@ const blocks = [
 
 const sections = ref([])
 
-function clone(block) {
+function clone(block, content) {
     const len = sections.value.length
     return {
         id: new Date().getTime(),
@@ -31,8 +33,9 @@ function clone(block) {
             {
                 id: `${block.name}-clone-${len}`,
                 label: `${block.label}-clone-${len}`,
+                name: block.name,
                 component: markRaw(block.component),
-                content: ""
+                content: content ?? ""
             }
         ]
 
@@ -51,6 +54,16 @@ const setSection = (index) => {
 const selectImage = (el) => {
     sections.value[sectionIndex.value].blocks[0].content = el;
     selecting.value = false;
+}
+
+const duplicate = (index, blockName) => {
+    const block = blocks.find(block => block.name === blockName);
+    const content = sections.value[index].blocks[0].content;
+    sections.value.splice(index + 1, 0, clone(block, content))
+}
+
+const remove = (index) => {
+    sections.value.splice(index, 1)
 }
 </script>
 
@@ -94,6 +107,8 @@ const selectImage = (el) => {
                         v-model:content="section.blocks[0].content"
                         @select="setSection(index)"
                     />
+                    <IconDuplicate @click="duplicate(index, section.blocks[0].name)" />
+                    <IconDelete @click="remove(index)" />
                 </div>
             </VueDraggable>
 
