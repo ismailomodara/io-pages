@@ -1,22 +1,41 @@
 <template>
-    <Modal v-model="computedShow">
-        <h1>Images</h1>
-        <p v-for="el in images" :key="el" @click="select(el)" class="image">Image {{ el }} <span v-if="el === image">(selected)</span> </p>
-        <button @click="update">Set image</button>
+    <Modal v-model="computedShow" title="Select an image">
+        <div class="image-preview h-[320px] w-[100%] mb-4">
+            <img v-if="presetImage.id" :src="presetImage.url" alt="Image" class="h-[100%] w-[100%] object-cover" />
+            <div v-else class="h-[200px] w-[100%] flex justify-center items-center">
+                <span>No image selected</span>
+            </div>
+        </div>
+
+        <div class="images grid grid-cols-4 gap-1 mb-2">
+            <img
+                v-for="image in presetImages"
+                :key="image.id"
+                class="h-[80px] w-[100%] object-cover cursor-pointer"
+                :class="{ selected: image.id === presetImage.id }"
+                :src="image.url" :alt="image.url" @click="setPresetImage(image)" />
+        </div>
+        <div class="w-[100%] text-center">
+            <button
+                type="button" class="px-2 py-2 bg-[#0d0c22] text-white text-xs rounded-md"
+                    @click="update">Set Image</button>
+        </div>
     </Modal>
 </template>
 <script setup>
+import { ref, computed, watch} from "vue";
 import Modal from "@/components/Modal.vue";
-import {ref, computed, watch} from "vue";
 
 const props = defineProps({
     show: {
         type: Boolean,
         default: false
     },
-    selected: {
-        type: [String, Number],
-        default: ""
+    selectedImage: {
+        type: Object,
+        default: () => {
+            return { id: null, url: "" }
+        }
     }
 })
 
@@ -30,37 +49,33 @@ const computedShow = computed({
     }
 })
 
-const image = ref("")
-const images = [1, 2, 3, 4];
-
-const select = (id) => {
-    image.value = id;
+const presetImages = [
+    { id: 1, url: "/images/presets/a-day-at-the-beach.jpg" },
+    { id: 2, url: "/images/presets/computer-screen-image.jpg" },
+    { id: 3, url: "/images/presets/field-of-flowers.jpg" },
+    { id: 4, url: "/images/presets/watching-live-soccer.jpg" }
+];
+const presetImage = ref({ id: null, url: "" });
+const setPresetImage = (image) => {
+    presetImage.value = image;
 }
 
 const update = () => {
-    emits("update", image.value);
+    emits("update", presetImage.value);
     computedShow.value = false;
-    image.value = ""
+    presetImage.value = { id: null, url: "" };
 }
 
 watch(computedShow, () => {
-    if (computedShow && props.selected) {
-        console.log('Yo')
-        console.log(props.selected)
-        image.value = props.selected
+    if (computedShow && props.selectedImage.id) {
+        presetImage.value = props.selectedImage
+        console.log(presetImage)
     }
 })
 </script>
 
 <style lang="scss" scoped>
-.image {
-    background-color: #000;
-    padding: 10px;
-    margin-bottom: 10px;
-    color: #fff;
-
-    span {
-        color: #fff;
-    }
+.selected {
+    border: 2px solid red;
 }
 </style>

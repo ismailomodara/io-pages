@@ -3,11 +3,12 @@ import { defineStore } from 'pinia'
 import type { Page, PageBlock } from "@/types";
 
 export const useAppStore = defineStore('app', () => {
-    const page = ref({
+    const page = ref<Page>({
         title: "Untitled Page",
         font: "Figtree",
         paddingX: 40,
-        paddingY: 40
+        paddingY: 20,
+        blocks: []
     })
 
     const updatePageData = (data: Page) => {
@@ -17,7 +18,10 @@ export const useAppStore = defineStore('app', () => {
     const updatePageBlocks = (blocks: PageBlock[]) => {
         page.value = {
             ...page.value,
-            ...blocks
+            blocks: {
+                ...page.value.blocks,
+                ...blocks
+            }
         };
     }
 

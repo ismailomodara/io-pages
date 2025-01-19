@@ -10,7 +10,13 @@
                 class="blocks"
                 :style="{ minHeight: blocks.length === 0 ? '250px' : 'auto' }"
             >
-                <div v-for="(block, index) in blocks" :key="block.id" class="block">
+                <div
+                    v-for="(block, index) in blocks"
+                    :key="block.id" class="block"
+                    :style="{
+                        padding: `${store.page.paddingY}px ${store.page.paddingX}px`,
+                        fontFamily: `${store.page.font}, sans-serif`
+                    }">
                     <div class="block-navigation">
                         <span @click="move(index, 'up')"><IconArrowUp /></span>
                         <span class="handle cursor-move"><IconHandle /></span>
@@ -23,7 +29,7 @@
                     </div>
 
                     <component
-                        :is="block.component"
+                        :is="blocksComponents[block.name]"
                         v-model:content="block.content"
                         @action="setBlock($event, index)"
                     />
@@ -34,7 +40,7 @@
 
     <BuilderImages
         v-model:show="builderImagesModal.visibility"
-        :selected="builderImagesModal.selected"
+        :selected-image="builderImagesModal.selectedImage"
         @update="updateBlockImage" />
 
     <div v-if="blocks.length === 0" class="builder-design-empty">
@@ -45,7 +51,6 @@
 
 <script setup>
 import { ref, watch } from 'vue'
-import { useAppStore } from "@/stores/app.ts";
 import { VueDraggable } from 'vue-draggable-plus'
 
 import IconDuplicate from "@/components/Icons/IconDuplicate.vue";
@@ -53,26 +58,38 @@ import IconDelete from "@/components/Icons/IconDelete.vue";
 import IconArrowUp from "@/components/Icons/IconArrowUp.vue";
 import IconArrowDown from "@/components/Icons/IconArrowDown.vue";
 import IconHandle from "@/components/Icons/IconHandle.vue";
+
 import BuilderSection from "@/components/Builder/BuilderSection.vue";
 import BuilderImages from "@/components/Builder/BuilderImages.vue";
 
+import BlockText from "@/components/Builder/Blocks/BlockText.vue";
+import BlockImage from "@/components/Builder/Blocks/BlockImage.vue";
+
+import { useAppStore } from "@/stores/app.ts";
+
+const store = useAppStore();
+
 const blocks = ref([])
+const blocksComponents = {
+    text: BlockText,
+    image: BlockImage
+}
 
 const builderImagesModal = ref({
     visibility: false,
-    selected: null
+    selectedImage: null
 })
 const selectedBlockIndex = ref(null);
 const setBlock = (action, index) => {
     selectedBlockIndex.value = index;
 
     if (action === 'image') {
-        builderImagesModal.value.selected = blocks.value[selectedBlockIndex.value].content;
+        builderImagesModal.value.selectedImage = blocks.value[selectedBlockIndex.value].content;
         builderImagesModal.value.visibility = true;
     }
 }
-const updateBlockImage = (url) => {
-    blocks.value[selectedBlockIndex.value].content = "www.google.com/"+url;
+const updateBlockImage = (image) => {
+    blocks.value[selectedBlockIndex.value].content = image;
 }
 
 const move = (index, dir) => {
@@ -112,7 +129,7 @@ const remove = (index) => {
     blocks.value.splice(index, 1)
 }
 
-const store = useAppStore();
+
 watch(() => blocks, () => {
     store.updatePageBlocks(blocks.value)
 }, { deep: true })

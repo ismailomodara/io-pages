@@ -16,11 +16,7 @@
 </template>
 
 <script setup>
-import { markRaw } from "vue";
 import { VueDraggable } from 'vue-draggable-plus'
-
-import BlockText from "@/components/Builder/Blocks/BlockText.vue";
-import BlockImage from "@/components/Builder/Blocks/BlockImage.vue";
 
 import IconText from "@/components/Icons/IconText.vue";
 import IconImage from "@/components/Icons/IconImage.vue";
@@ -28,8 +24,8 @@ import IconImage from "@/components/Icons/IconImage.vue";
 import BuilderSection from "@/components/Builder/BuilderSection.vue";
 
 const blocks = [
-    { id: 1, name: 'text', label: 'Text', component: BlockText, icon: IconText },
-    { id: 2, name: 'image', label: 'Image', component: BlockImage, icon: IconImage }
+    { id: 1, name: 'text', label: 'Text', icon: IconText, content: "" },
+    { id: 2, name: 'image', label: 'Image', icon: IconImage, content: {} }
 ]
 
 const clone = (block) => {
@@ -37,8 +33,7 @@ const clone = (block) => {
         id: new Date().getTime(),
         label: block.label,
         name: block.name,
-        component: markRaw(block.component),
-        content: ""
+        content: block.content
     }
 }
 </script>

@@ -2,7 +2,7 @@
 
 This web application allows users to create a simple landing page using drag and drop feature to structure content on their page.
 
-![alt text](public/unfurl.png)
+![alt text](public/images/unfurl.png)
 
 ## Project Folder Structure
 The project consists of two main folders as common to project built with Vue, `public` and `src` folders.

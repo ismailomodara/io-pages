@@ -38,18 +38,15 @@ export default defineComponent({
 <style lang="scss" scoped>
 .block-text {
     padding: 10px 0;
-    color: #515856;
+    color: var(--text);
     background-color: transparent;
     font-size: 16px;
+    font-weight: inherit;
     outline: none;
     box-shadow: none;
     width: 100%;
     margin: auto;
     border: 1.5px solid transparent;
     border-radius: 4px;
-
-    &:hover {
-        //border-color: #0d0C2220;
-    }
 }
 </style>
