@@ -23,21 +23,33 @@ const router = createRouter({
       path: '/dashboard',
       name: 'dashboard',
       component: Dashboard,
+      meta: {
+        layout: "dashboard"
+      }
     },
     {
       path: '/pages',
       name: 'pages.index',
       component: PagesIndex,
+      meta: {
+        layout: "dashboard"
+      }
     },
     {
       path: '/pages/:id',
       name: 'pages.builder',
       component: PagesBuilder,
+      meta: {
+        layout: "builder"
+      }
     },
     {
       path: '/settings',
       name: 'settings',
       component: Settings,
+      meta: {
+        layout: "dashboard"
+      }
     }
   ],
 })
