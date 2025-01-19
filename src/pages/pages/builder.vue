@@ -44,7 +44,8 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
+import { useAppStore } from "@/stores/app.ts";
 import { VueDraggable } from 'vue-draggable-plus'
 
 import IconDuplicate from "@/components/Icons/IconDuplicate.vue";
@@ -57,7 +58,6 @@ import BuilderImages from "@/components/Builder/BuilderImages.vue";
 
 const blocks = ref([])
 
-const showBuilderImagesModal = ref(false);
 const builderImagesModal = ref({
     visibility: false,
     selected: null
@@ -111,6 +111,12 @@ const duplicate = (index) => {
 const remove = (index) => {
     blocks.value.splice(index, 1)
 }
+
+const store = useAppStore();
+watch(() => blocks, () => {
+    console.log("Changed")
+    store.updatePageBlocks(blocks.value)
+}, { deep: true })
 </script>
 
 <style lang="scss" scoped>

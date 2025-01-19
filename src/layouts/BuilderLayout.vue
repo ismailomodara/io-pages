@@ -6,7 +6,7 @@
                 <p>Landing Page Name</p>
             </div>
             <div>
-                <button>Save</button>
+                <button @click="save">Save</button>
             </div>
         </nav>
         <div class="builder-layout-content">
@@ -26,6 +26,14 @@ import IconArrowBack from "@/components/Icons/IconArrowBack.vue";
 
 import BuilderBlocks from "@/components/Builder/BuilderBlocks.vue";
 import BuilderSettings from "@/components/Builder/BuilderSettings.vue";
+
+import { useAppStore } from "@/stores/app.ts";
+
+const store = useAppStore();
+
+const save = () => {
+    console.log(store.page);
+}
 </script>
 
 <style lang="scss" scoped>
