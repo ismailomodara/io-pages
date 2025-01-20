@@ -28,7 +28,7 @@ const blocks = [
     { id: 2, name: 'image', label: 'Image', icon: IconImage, content: {} }
 ]
 
-const clone = (block) => {
+function clone (block) {
     return {
         id: new Date().getTime(),
         label: block.label,

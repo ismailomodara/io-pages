@@ -19,10 +19,6 @@ export default defineComponent({
 
     emits: ["update:content"],
 
-    data() {
-        return {}
-    },
-
     methods: {
         blur() {
             this.$emit("update:content", this.$refs.blockText.textContent)

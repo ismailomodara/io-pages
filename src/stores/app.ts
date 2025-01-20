@@ -28,11 +28,11 @@ export const useAppStore = defineStore('app', () => {
         blocks: []
     })
 
-    const updatePageData = (data: Page) => {
+    function updatePageData (data: Page) {
         page.value = { ...page.value, ...data }
     }
 
-    const updatePageBlocks = (blocks: PageBlock[]) => {
+    function updatePageBlocks (blocks: PageBlock[]) {
         page.value = {
             ...page.value,
             blocks

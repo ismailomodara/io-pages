@@ -55,11 +55,11 @@ const presetImages = [
     { id: 4, url: "/images/presets/watching-live-soccer.jpg" }
 ];
 const presetImage = ref({ id: null, url: "" });
-const setPresetImage = (image) => {
+function setPresetImage (image) {
     presetImage.value = image;
 }
 
-const update = () => {
+function update() {
     emits("update", presetImage.value);
     computedShow.value = false;
     presetImage.value = { id: null, url: "" };

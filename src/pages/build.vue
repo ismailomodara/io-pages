@@ -13,7 +13,7 @@
                 <BlockView
                     v-for="(block, index) in blocks"
                     :key="block.id"
-                    :block="block" @action="setAction($event, index)"
+                    :block="block" @action="setBlockAction($event, index)"
                     :style="{
                         padding: `${store.page.paddingY}px ${store.page.paddingX}px`,
                         fontFamily: `${store.page.font}, sans-serif`
@@ -33,7 +33,7 @@
     <BuilderImages
         v-model:show="builderImagesModal.visibility"
         :selected-image="builderImagesModal.selectedImage"
-        @update="updateImage" />
+        @update="setBlockImage" />
 </template>
 
 <script setup>
@@ -47,65 +47,23 @@ import BuilderSection from "@/components/Builder/BuilderSection.vue";
 import { useAppStore } from "@/stores/app.ts";
 const store = useAppStore();
 
-const blocks = ref([])
-
-const move = (index, direction) => {
-    const blocksCount = blocks.value.length;
-    if (direction === "up" && index > 0) {
-        [blocks.value[index - 1], blocks.value[index]] = [
-            blocks.value[index],
-            blocks.value[index - 1],
-        ];
-    } else if (direction === "down" && index < blocksCount - 1) {
-        [blocks.value[index], blocks.value[index + 1]] = [
-            blocks.value[index + 1],
-            blocks.value[index],
-        ];
-    }
-}
-
-const duplicate = (index) => {
-    blocks.value.splice(index + 1, 0, {
-        ...blocks.value[index]
-    })
-}
-
-const remove = (index) => {
-    blocks.value.splice(index, 1)
-}
+import { useBlocks } from "@/composables/useBlocks.ts";
+const { blocks, selectedBlockIndex, showSetBlockImage, setBlockAction, setBlockImage  } = useBlocks();
 
 const builderImagesModal = ref({
     visibility: false,
     selectedImage: null
 })
-const selectedBlockIndex = ref(null);
-const setImage = (index) => {
-    selectedBlockIndex.value = index;
-    builderImagesModal.value.selectedImage = blocks.value[selectedBlockIndex.value].content;
-    builderImagesModal.value.visibility = true;
-}
-const updateImage = (image) => {
-    blocks.value[selectedBlockIndex.value].content = image;
-}
 
-const setAction = (action, index) => {
-    switch (action.name) {
-        case "move":
-            move(index, action.value);
-            break;
-        case "duplicate":
-            duplicate(index);
-            break;
-        case "remove":
-            remove(index);
-            break;
-        case "setImage":
-            setImage(index);
-            break;
-        default:
-            break;
+watch(() => showSetBlockImage.value, () => {
+    if (showSetBlockImage.value) {
+        builderImagesModal.value.selectedImage = blocks.value[selectedBlockIndex.value].content;
+        builderImagesModal.value.visibility = true;
+    } else {
+        builderImagesModal.value.visibility = false;
+        builderImagesModal.value.selectedImage = null;
     }
-}
+})
 
 watch(() => blocks, () => {
     store.updatePageBlocks(blocks.value)

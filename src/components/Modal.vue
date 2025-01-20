@@ -34,7 +34,7 @@ export default defineComponent({
             required: true,
         },
     },
-    emits: ['close'],
+    emits: ['close', 'update:modelValue'],
     methods: {
         close() {
             this.$emit('update:modelValue', false);

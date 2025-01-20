@@ -1,6 +1,6 @@
 <template>
     <div class="builder-section mb-5 pb-5">
-        <h5 v-if="title" class="font-[600] text-[#006C4C] mb-3 text-xs uppercase tracking-wider" :style="{ textAlign: align }">{{ title }}</h5>
+        <h5 class="font-[600] text-[#006C4C] mb-3 text-xs uppercase tracking-wider" :style="{ textAlign: align }">{{ title }}</h5>
         <slot />
     </div>
 </template>
@@ -9,7 +9,7 @@
 defineProps({
     title: {
         type: String,
-        default: ""
+        required: true
     },
     align: {
         type: String,

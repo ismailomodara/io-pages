@@ -14,7 +14,7 @@
         <component
             :is="blocksComponents[block.name]"
             v-model:content="block.content"
-            @action="$emit('action', { name: 'setImage', value: $event })"
+            @action="$emit('action', $event)"
         />
     </div>
 </template>
