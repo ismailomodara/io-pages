@@ -20,7 +20,7 @@ The project consists of two main folders as common to project built with Vue, `p
 - `pages` contains all pages including app specific pages and general pages.
 
 - `router` contains file that defines our application routes.
-- 
+ 
 - `store` contains file that handles simple app store.
 
 - `App.vue` The Vue component where our app is built
