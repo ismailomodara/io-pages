@@ -1,3 +1,8 @@
+<!--
+    This component handles previewing and selection of images for the Image Block.
+    A list of predefined images stored in the public directory.
+    A logic to update parent component of selected image.
+-->
 <template>
     <Modal v-model="computedShow" title="Select an image">
         <div class="image-preview h-[320px] w-[100%] mb-4">

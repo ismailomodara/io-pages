@@ -29,10 +29,16 @@ import { useAppStore } from "@/stores/app.ts";
 const store = useAppStore();
 
 const settings = ref({
-    font: store.page.font,
-    paddingX: store.page.paddingX,
-    paddingY: store.page.paddingY
+    font: "Figtree",
+    paddingX: 40,
+    paddingY: 20
 })
+
+if (store && store.page) {
+    settings.value.font = store.page.font;
+    settings.value.paddingX = store.page.paddingX;
+    settings.value.paddingY = store.page.paddingY;
+}
 
 watch(settings, () => {
     store.updatePageData(settings.value);

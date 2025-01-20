@@ -1,13 +1,16 @@
 import { ref } from 'vue'
 import { defineStore } from 'pinia'
 
+interface Image {
+    id: number | null,
+    url: string
+}
+
 interface PageBlock {
     id: number,
     name: string,
     label: string,
-    text?: string,
-    url?: string,
-    content: any
+    content: string | Image
 }
 
 interface Page {

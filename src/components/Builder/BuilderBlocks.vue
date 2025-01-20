@@ -1,3 +1,8 @@
+<!--
+    This component handles rendering list of available available blocks (Text, Image).
+    A function to handle custom clone when a block is dragged and dropped (assigning a custom ID).
+-->
+
 <template>
     <BuilderSection title="Blocks">
         <VueDraggable
