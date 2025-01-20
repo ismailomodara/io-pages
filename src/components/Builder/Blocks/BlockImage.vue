@@ -1,9 +1,9 @@
 <template>
     <div ref="blockImage" class="block-image">
-        <template v-if="content.id">
+        <template v-if="content && content.id">
             <img :src="content.url" alt="Image" class="h-[100%] w-[100%] object-cover" />
-            <div class="block-image-change absolute -top-[22px] px-2 py-1 text-xs bg-black text-white cursor-pointer invisible " @click="$emit('action', 'image')">
-                <p>Change image</p>
+            <div class="block-image-change absolute -top-[14px] left-[5px] p-1 text-xs bg-black text-white cursor-pointer invisible " @click="$emit('action', 'image')">
+                <IconImage class="h-[16px] stroke-white" />
             </div>
         </template>
         <div v-else class="h-[100%] w-[100%] flex flex-col justify-center items-center">
@@ -16,19 +16,17 @@
 
 <script>
 import { defineComponent } from "vue";
+import IconImage from "@/components/Icons/IconImage.vue";
 
 export default defineComponent({
     name: "BlockImage",
-
+    components: {IconImage},
     props: {
         content: {
             type: Object,
-            default: () => {
-                return { id: null, url: "" }
-            }
+            default: null
         }
     },
-
     emits: ["action"],
 })
 </script>

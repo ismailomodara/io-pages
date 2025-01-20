@@ -1,18 +1,20 @@
 <template>
     <BuilderSection title="Design your page" align="center">
-        <div class="builder-design">
+        <div class="builder-design relative">
             <VueDraggable
                 v-model="blocks"
                 :animation="150"
                 group="blocks"
                 ghostClass="ghost"
                 handle=".handle"
-                class="blocks"
-                :style="{ minHeight: blocks.length === 0 ? '250px' : 'auto' }"
+                class="blocks relative"
+                @change="test"
+                @end="test2"
+                :style="{ minHeight: blocks.length === 0 || !changing ? '160px' : 'auto' }"
             >
                 <div
                     v-for="(block, index) in blocks"
-                    :key="block.id" class="block"
+                    :key="block.id" class="block bg-white w-[100%] relative"
                     :style="{
                         padding: `${store.page.paddingY}px ${store.page.paddingX}px`,
                         fontFamily: `${store.page.font}, sans-serif`
@@ -35,6 +37,7 @@
                     />
                 </div>
             </VueDraggable>
+            <BuilderEmpty v-if="!blocks.length" />
         </div>
     </BuilderSection>
 
@@ -42,11 +45,6 @@
         v-model:show="builderImagesModal.visibility"
         :selected-image="builderImagesModal.selectedImage"
         @update="updateBlockImage" />
-
-    <div v-if="blocks.length === 0" class="builder-design-empty">
-        <img src="@/assets/placeholder-drag-v2.svg" alt="Drag" />
-        <p>Drag and drop a block here to get started</p>
-    </div>
 </template>
 
 <script setup>
@@ -66,6 +64,7 @@ import BlockText from "@/components/Builder/Blocks/BlockText.vue";
 import BlockImage from "@/components/Builder/Blocks/BlockImage.vue";
 
 import { useAppStore } from "@/stores/app.ts";
+import BuilderEmpty from "@/components/Builder/BuilderEmpty.vue";
 
 const store = useAppStore();
 
@@ -92,31 +91,19 @@ const updateBlockImage = (image) => {
     blocks.value[selectedBlockIndex.value].content = image;
 }
 
-const move = (index, dir) => {
+const move = (index, direction) => {
     const blocksCount = blocks.value.length;
-
-    if (index === 0 && dir === 'up') {
-        return;
+    if (direction === "up" && index > 0) {
+        [blocks.value[index - 1], blocks.value[index]] = [
+            blocks.value[index],
+            blocks.value[index - 1],
+        ];
+    } else if (direction === "down" && index < blocksCount - 1) {
+        [blocks.value[index], blocks.value[index + 1]] = [
+            blocks.value[index + 1],
+            blocks.value[index],
+        ];
     }
-
-    if (index + 1 === blocksCount && dir === 'down') {
-        return;
-    }
-
-    const destinationIndex = dir === 'up' ? index - 1 : index + 1;
-    const destinationContent = JSON.parse(JSON.stringify(blocks.value[destinationIndex]));
-    const currentContent = JSON.parse(JSON.stringify(blocks.value[index]));
-
-    console.log(destinationContent)
-    console.log(currentContent)
-
-    blocks.value[destinationIndex] = currentContent;
-    blocks.value[index] = destinationContent;
-
-    console.log(index)
-    console.log(dir)
-
-    console.log(blocks.value)
 }
 
 const duplicate = (index) => {
@@ -129,6 +116,15 @@ const remove = (index) => {
     blocks.value.splice(index, 1)
 }
 
+const changing = ref(false);
+const test = () => {
+    changing.value = true;
+    console.log("Sushi")
+}
+const test2 = () => {
+    changing.value = false;
+    console.log("Sushi2")
+}
 
 watch(() => blocks, () => {
     store.updatePageBlocks(blocks.value)
@@ -144,14 +140,9 @@ watch(() => blocks, () => {
     background-color: #ffffff;
 
     .blocks {
-        position: relative;
-
         .block {
-            background-color: #fff;
             border: 1px solid transparent;
             padding: 20px 40px;
-            width: 100%;
-            position: relative;
 
             &-navigation,
             &-actions {
@@ -248,20 +239,4 @@ watch(() => blocks, () => {
     opacity: 0.4;
     background-color: #f3f3f6;
 }
-
-.images {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-
-    .image {
-        margin-right: 10px;
-        padding: 10px;
-        background-color: #0d0C22;
-        color: #fff;
-        font-size: 10px;
-        cursor: pointer;
-    }
-}
-
-
 </style>

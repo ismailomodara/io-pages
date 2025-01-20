@@ -53,6 +53,7 @@ const clone = (block) => {
     border: 1.5px dashed #0d0C22;
     background-color: #f3f3f6;
     width: 100%;
+    height: 160px;
     opacity: 1 !important;
 }
 </style>
