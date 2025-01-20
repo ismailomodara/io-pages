@@ -1,5 +1,5 @@
 <template>
-    <div class="builder-layout select-none">
+    <div class="builder-layout">
         <nav class="builder-layout-nav flex justify-between items-center h-[70px] bg-white px-4 md:px-6 border-b border-gray:50">
             <div class="flex items-center">
                 <IconArrowBack class="mr-4 cursor-pointer" tabindex="1" @click="$router.push({ name: 'index' })" />

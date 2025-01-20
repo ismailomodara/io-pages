@@ -7,9 +7,9 @@
             :clone="clone"
             :sort="false"
             class="blocks">
-            <div v-for="block in blocks" :key="block.id" class="h-[80px] w-100% bg-[#f0f3f6] rounded flex flex-col items-center justify-center cursor-move">
+            <div v-for="block in blocks" :key="block.id" class="h-[80px] w-100% bg-[#f0f3f6] rounded flex flex-col items-center justify-center cursor-move" tabindex="0">
                 <component :is="block.icon" />
-                <span class="text-xs font-medium mt-1 select-none">{{ block.label }}</span>
+                <span class="text-xs font-medium mt-1">{{ block.label }}</span>
             </div>
         </VueDraggable>
     </BuilderSection>
@@ -17,16 +17,9 @@
 
 <script setup>
 import { VueDraggable } from 'vue-draggable-plus'
-
-import IconText from "@/components/Icons/IconText.vue";
-import IconImage from "@/components/Icons/IconImage.vue";
+import { blocks } from "@/components/Builder/Blocks/blocks.ts";
 
 import BuilderSection from "@/components/Builder/BuilderSection.vue";
-
-const blocks = [
-    { id: 1, name: 'text', label: 'Text', icon: IconText, content: "" },
-    { id: 2, name: 'image', label: 'Image', icon: IconImage, content: {} }
-]
 
 function clone (block) {
     return {

@@ -12,6 +12,7 @@
                 v-for="image in presetImages"
                 :key="image.id"
                 class="h-[80px] w-[100%] object-cover cursor-pointer"
+                tabindex="0"
                 :class="{ selected: image.id === presetImage.id }"
                 :src="image.url" :alt="image.url" @click="setPresetImage(image)" />
         </div>
