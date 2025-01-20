@@ -19,9 +19,6 @@ export default defineConfig({
       '@': fileURLToPath(new URL('./src', import.meta.url))
     },
   },
-  test: {
-    environment: 'happy-dom'
-  },
   server: {
     port: 8080
   }

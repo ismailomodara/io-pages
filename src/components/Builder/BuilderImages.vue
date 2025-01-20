@@ -50,10 +50,10 @@ const computedShow = computed({
 })
 
 const presetImages = [
-    { id: 1, url: "/images/presets/a-day-at-the-beach.jpg" },
-    { id: 2, url: "/images/presets/computer-screen-image.jpg" },
-    { id: 3, url: "/images/presets/field-of-flowers.jpg" },
-    { id: 4, url: "/images/presets/watching-live-soccer.jpg" }
+    { id: 1, url: "/images/presets/a-day-at-the-beach.jpg", ref: "https://www.pexels.com/photo/dusk-at-the-beach-with-urban-skyline-30154480/" },
+    { id: 2, url: "/images/presets/computer-screen-image.jpg", ref: "https://www.pexels.com/photo/macbook-pro-near-white-ceramic-mug-265152/" },
+    { id: 3, url: "/images/presets/field-of-flowers.jpg", ref: "https://www.pexels.com/photo/close-up-photo-of-red-flowers-1961778/" },
+    { id: 4, url: "/images/presets/watching-live-soccer.jpg", ref: "https://www.pexels.com/photo/people-watching-soccer-game-1884574/" }
 ];
 const presetImage = ref({ id: null, url: "" });
 function setPresetImage (image) {

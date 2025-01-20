@@ -5,19 +5,25 @@
     </div>
 </template>
 
-<script setup>
-defineProps({
-    title: {
-        type: String,
-        required: true
-    },
-    align: {
-        type: String,
-        default: 'left'
+<script>
+import { defineComponent } from "vue";
+
+export default defineComponent({
+    name: "BuilderSection",
+
+    props: {
+        title: {
+            type: String,
+            required: true
+        },
+        align: {
+            type: String,
+            default: 'left'
+        }
     }
 })
-
 </script>
+
 <style scoped>
 .builder-section:not(:last-child) {
     border-bottom: 1px solid #9ca3af30;

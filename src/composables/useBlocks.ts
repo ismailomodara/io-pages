@@ -1,7 +1,7 @@
 import { ref } from 'vue'
 
 interface Image {
-    id: number,
+    id: number | null,
     url: string
 }
 
@@ -22,6 +22,8 @@ export function useBlocks() {
 
 
     function move (index: number, direction: string) {
+        if (index < 0) return;
+
         const blocksCount = blocks.value.length;
         if (direction === "up" && index > 0) {
             [blocks.value[index - 1], blocks.value[index]] = [
@@ -37,12 +39,14 @@ export function useBlocks() {
     }
 
     function duplicate (index: number) {
+        if (index < 0) return;
         blocks.value.splice(index + 1, 0, {
             ...blocks.value[index]
         })
     }
 
     function remove (index: number) {
+        if (index < 0) return;
         blocks.value.splice(index, 1)
     }
 
