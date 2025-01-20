@@ -1,5 +1,5 @@
 <template>
-    <div class="builder-layout">
+    <div class="builder-layout select-none">
         <nav class="builder-layout-nav flex justify-between items-center h-[70px] bg-white px-4 md:px-6 border-b border-gray:50">
             <div class="flex items-center">
                 <IconArrowBack class="mr-4 cursor-pointer" tabindex="1" @click="$router.push({ name: 'index' })" />
@@ -13,9 +13,7 @@
                     />
                 </div>
             </div>
-            <button @click="save" class="px-6 py-2 text-white bg-[#006C4C] rounded-full shadow-md hover:translate-y-[-2px] hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-[#006C4C] active:translate-y-[1px] transition-transform duration-150">
-                Save
-            </button>
+            <Button @click="save">Save</Button>
         </nav>
         <div class="builder-layout-content w-100% h-[calc(100%-70px)]">
             <aside class="builder-panel py-5 px-4 overflow-y-auto h-100% bg-white border-r border-gray:50">
@@ -38,6 +36,7 @@ import BuilderBlocks from "@/components/Builder/BuilderBlocks.vue";
 import BuilderSettings from "@/components/Builder/BuilderSettings.vue";
 
 import { useAppStore } from "@/stores/app.ts";
+import Button from "@/components/Button.vue";
 const store = useAppStore();
 
 const title = ref(store.page.title)

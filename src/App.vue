@@ -11,7 +11,7 @@ const layout = computed(() => {
 
     if (routeLayout === 'builder') {
         return BuilderLayout;
-    };
+    }
     return BlankLayout;
 });
 

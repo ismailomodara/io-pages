@@ -6,8 +6,12 @@
         <h1 class="text-5xl md:text-8xl leading-none text-center text-white font-bold mb-5">
             Error 404
         </h1>
-        <button @click="$router.push({ name: 'index' })" class="px-8 py-3 font-medium text-md text-[#000] bg-[#ffffff] rounded-full shadow-md hover:translate-y-[-2px] hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-[#fff] active:translate-y-[1px] transition-transform duration-150">
-            Go home
-        </button>
+        <Button type="tertiary" size="large" @click="$router.push({ name: 'index' })">
+            Go Home
+        </Button>
     </div>
 </template>
+
+<script setup>
+import Button from "@/components/Button.vue";
+</script>

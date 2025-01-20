@@ -8,9 +8,12 @@
            <h1 class="text-5xl md:text-7xl leading-none text-center text-white font-[600] mb-5">
                Build simple pages  <br> in seconds.
            </h1>
-           <button @click="$router.push({ name: 'pages.build' })" class="px-8 py-3 font-medium text-md text-[#000] bg-[#ffffff] rounded-full shadow-md hover:translate-y-[-2px] hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-[#fff] active:translate-y-[1px] transition-transform duration-150">
+           <Button type="tertiary" size="large" @click="$router.push({ name: 'pages.build' })">
                Let's Begin
-           </button>
+           </Button>
        </div>
     </div>
 </template>
+<script setup>
+import Button from "@/components/Button.vue";
+</script>

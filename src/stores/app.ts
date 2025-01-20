@@ -1,6 +1,23 @@
 import { ref } from 'vue'
 import { defineStore } from 'pinia'
-import type { Page, PageBlock } from "@/types";
+
+interface PageBlock {
+    id: number,
+    name: string,
+    label: string,
+    text?: string,
+    url?: string,
+    content: any
+}
+
+interface Page {
+    title: string,
+    font: string,
+    paddingX: number,
+    paddingY: number,
+    blocks: PageBlock[]
+}
+
 
 export const useAppStore = defineStore('app', () => {
     const page = ref<Page>({
@@ -18,10 +35,7 @@ export const useAppStore = defineStore('app', () => {
     const updatePageBlocks = (blocks: PageBlock[]) => {
         page.value = {
             ...page.value,
-            blocks: {
-                ...page.value.blocks,
-                ...blocks
-            }
+            blocks
         };
     }
 

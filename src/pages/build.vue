@@ -10,12 +10,23 @@
                 class="blocks relative"
                 :style="{ minHeight: blocks.length === 0 ? '160px' : 'auto' }"
             >
-                <BuilderBlockView
+                <BlockView
                     v-for="(block, index) in blocks"
                     :key="block.id"
-                    :block="block" @action="setAction($event, index)" />
+                    :block="block" @action="setAction($event, index)"
+                    :style="{
+                        padding: `${store.page.paddingY}px ${store.page.paddingX}px`,
+                        fontFamily: `${store.page.font}, sans-serif`
+                    }"
+                />
             </VueDraggable>
-            <BuilderEmpty v-if="!blocks.length" />
+            <template v-if="!blocks.length">
+                <div class="absolute top-0 h-[100%] w-[100%] flex flex-col justify-center items-center opacity-75">
+                    <img src="/images/placeholder-drag.svg" alt="Drag" class="mb-2 h-[48px]" />
+                    <p class="text-gray-400">Drag and drop a block here to get started</p>
+                </div>
+            </template>
+
         </div>
     </BuilderSection>
 
@@ -29,8 +40,7 @@
 import { ref, watch } from 'vue'
 import { VueDraggable } from 'vue-draggable-plus'
 
-import BuilderBlockView from "@/components/Builder/BuilderBlockView.vue";
-import BuilderEmpty from "@/components/Builder/BuilderEmpty.vue";
+import BlockView from "@/components/Builder/Blocks/BlockView.vue";
 import BuilderImages from "@/components/Builder/BuilderImages.vue";
 import BuilderSection from "@/components/Builder/BuilderSection.vue";
 
@@ -102,7 +112,7 @@ watch(() => blocks, () => {
 }, { deep: true })
 </script>
 
-<style lang="scss" scoped>
+<style scoped>
 .builder-design {
     border-radius: 8px;
     max-width: 1024px;

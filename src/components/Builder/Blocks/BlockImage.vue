@@ -1,5 +1,5 @@
 <template>
-    <div ref="blockImage" class="block-image">
+    <div ref="blockImage" class="block-image relative h-[250px] w-[100%] shadow-none bg-[#f3f4f5] rounded">
         <template v-if="content && content.id">
             <img :src="content.url" alt="Image" class="h-[100%] w-[100%] object-cover" />
             <div class="block-image-change absolute -top-[14px] left-[5px] p-1 text-xs bg-black text-white cursor-pointer invisible " @click="$emit('action', 'image')">
@@ -7,9 +7,8 @@
             </div>
         </template>
         <div v-else class="h-[100%] w-[100%] flex flex-col justify-center items-center">
-            <img class="h-[80px] mb-4" src="@/assets/placeholder-drag-v2.svg" alt="Drag" />
-            <button type="button" class="px-2 py-2 bg-[#0d0c22] text-white text-xs rounded-md"
-                    @click="$emit('action', 'image')">Click to add image </button>
+            <img class="h-[80px] mb-4" src="/images/placeholder-drag.svg" alt="Drag" />
+            <Button class="text-xs" size="small" type="secondary" @click="$emit('action', 'image')">Click to add image</Button>
         </div>
     </div>
 </template>
@@ -17,10 +16,11 @@
 <script>
 import { defineComponent } from "vue";
 import IconImage from "@/components/Icons/IconImage.vue";
+import Button from "@/components/Button.vue";
 
 export default defineComponent({
     name: "BlockImage",
-    components: {IconImage},
+    components: {Button, IconImage},
     props: {
         content: {
             type: Object,
@@ -31,25 +31,17 @@ export default defineComponent({
 })
 </script>
 
-<style lang="scss" scoped>
+<style scoped>
 .block-image {
-    position: relative;
     outline: none;
-    box-shadow: none;
     border: 1px solid transparent;
-    height: 250px;
-    width: 100%;
-    border-radius: 4px;
-    background-color: #f3f4f5;
+}
 
-    &:hover {
-        border-color: #EAECED;
-    }
+.block-image:hover {
+    border-color: #EAECED;
+}
 
-    &:hover {
-        .block-image-change {
-            visibility: visible;
-        }
-    }
+.block-image:hover .block-image-change {
+    visibility: visible;
 }
 </style>

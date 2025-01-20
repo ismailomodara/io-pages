@@ -7,7 +7,7 @@
             </div>
         </div>
 
-        <div class="images grid grid-cols-4 gap-1 mb-2">
+        <div class="images grid grid-cols-4 gap-1 mb-3">
             <img
                 v-for="image in presetImages"
                 :key="image.id"
@@ -16,15 +16,14 @@
                 :src="image.url" :alt="image.url" @click="setPresetImage(image)" />
         </div>
         <div class="w-[100%] text-center">
-            <button
-                type="button" class="px-2 py-2 bg-[#0d0c22] text-white text-xs rounded-md"
-                    @click="update">Set Image</button>
+            <Button class="text-xs px-4" size="small" type="secondary" @click="update">Save Image</Button>
         </div>
     </Modal>
 </template>
 <script setup>
 import { ref, computed, watch} from "vue";
 import Modal from "@/components/Modal.vue";
+import Button from "@/components/Button.vue";
 
 const props = defineProps({
     show: {
@@ -73,7 +72,7 @@ watch(computedShow, () => {
 })
 </script>
 
-<style lang="scss" scoped>
+<style scoped>
 .selected {
     border: 2px solid red;
 }

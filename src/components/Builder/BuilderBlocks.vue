@@ -9,7 +9,7 @@
             class="blocks">
             <div v-for="block in blocks" :key="block.id" class="h-[80px] w-100% bg-[#f0f3f6] rounded flex flex-col items-center justify-center cursor-move">
                 <component :is="block.icon" />
-                <span class="text-xs font-medium mt-1">{{ block.label }}</span>
+                <span class="text-xs font-medium mt-1 select-none">{{ block.label }}</span>
             </div>
         </VueDraggable>
     </BuilderSection>
@@ -43,8 +43,10 @@ const clone = (block) => {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-gap: 10px;
+}
 
-    @media (max-width: 1024px) {
+@media (max-width: 1024px) {
+    .blocks {
         grid-template-columns: 1fr 1fr;
     }
 }

@@ -1,6 +1,6 @@
 <template>
-    <div class="builder-section">
-        <h5 v-if="title" :style="{ textAlign: align }">{{ title }}</h5>
+    <div class="builder-section mb-5 pb-5">
+        <h5 v-if="title" class="font-[600] text-[#006C4C] mb-3 text-xs uppercase tracking-wider" :style="{ textAlign: align }">{{ title }}</h5>
         <slot />
     </div>
 </template>
@@ -18,22 +18,8 @@ defineProps({
 })
 
 </script>
-<style lang="scss" scoped>
-.builder-section {
-    margin-bottom: 20px;
-    padding-bottom: 20px;
-
-    &:not(:last-child) {
-        border-bottom: 1px solid #9ca3af30;
-    }
-
-    h5 {
-        font-weight: 600;
-        text-transform: uppercase;
-        letter-spacing: 0.5px;
-        font-size: 12px;
-        color: #006C4C;
-        margin-bottom: 10px;
-    }
+<style scoped>
+.builder-section:not(:last-child) {
+    border-bottom: 1px solid #9ca3af30;
 }
 </style>

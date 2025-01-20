@@ -35,7 +35,7 @@ export default defineComponent({
 })
 </script>
 
-<style lang="scss" scoped>
+<style scoped>
 .block-text {
     padding: 10px 0;
     color: var(--text);
