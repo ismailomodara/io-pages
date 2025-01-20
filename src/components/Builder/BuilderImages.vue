@@ -69,7 +69,6 @@ const update = () => {
 watch(computedShow, () => {
     if (computedShow && props.selectedImage.id) {
         presetImage.value = props.selectedImage
-        console.log(presetImage)
     }
 })
 </script>
