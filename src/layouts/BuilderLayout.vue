@@ -44,7 +44,12 @@ const saveTitle = () => {
     store.updatePageData({ title: title.value })
 }
 const save = () => {
-    console.log(store.page)
+    if (store.page.blocks.length === 0) {
+        alert("No data to save yet!")
+    } else {
+        console.log(store.page);
+        alert("Check console for JSON data.")
+    }
 }
 </script>
 

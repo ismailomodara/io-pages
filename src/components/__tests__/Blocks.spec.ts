@@ -1,20 +1,22 @@
-import { describe, test, expect } from 'vitest';
+import { describe, it, expect } from 'vitest';
 import { blocks } from "../Builder/Blocks/blocks";
+import IconText from "@/components/Icons/IconText.vue";
+import IconImage from "@/components/Icons/IconImage.vue";
 
 
 describe('Blocks', () => {
-    test('Blocks exist', () => {
+    it('should check if blocks exist', () => {
         expect(blocks.length).toBeGreaterThan(0)
     })
 
-    test('Text block exist', () => {
+    it('should check if text block exist', () => {
         const text = blocks.find(block => block.name === 'text');
-        expect(text).toEqual(blocks[0])
+        expect(text).toEqual({ id: 1, name: "text", label: "Text", icon: IconText, content: "" })
     })
 
-    test('Image block exist', () => {
+    it('should check if image block exist', () => {
         const image = blocks.find(block => block.name === 'image');
-        expect(image).toEqual(blocks[1])
+        expect(image).toEqual({ id: 2, name: 'image', label: "Image", icon: IconImage, content: { id: null, url: "" }})
     })
 })
 

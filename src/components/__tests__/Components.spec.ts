@@ -1,5 +1,4 @@
-import { describe, test, it, expect } from 'vitest'
-import { mount } from '@vue/test-utils';
+import { describe, test, expect } from 'vitest'
 
 import BuilderSection from "@/components/Builder/BuilderSection.vue";
 import Modal from "@/components/Modal.vue";
@@ -11,11 +10,6 @@ describe('BuilderSection', () => {
     test('imports correctly', () => {
         expect(BuilderSection).toBeDefined()
     })
-    //
-    // test('renders correctly', () => {
-    //     const wrapper = mount(BuilderSection, { props: { title: 'Section Title' } })
-    //     expect(wrapper.text()).toContain('Sectin Title');
-    // });
 });
 
 describe('Modal', () => {
