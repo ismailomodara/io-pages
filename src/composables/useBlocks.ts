@@ -47,7 +47,6 @@ export function useBlocks() {
     }
 
     const selectedBlockIndex = ref<number|null>(null);
-    const selectedBlockAction = ref<string>("");
     function setBlockAction (action: Action, index: number) {
         switch (action.name) {
             case "move":
@@ -60,22 +59,17 @@ export function useBlocks() {
                 remove(index);
                 break;
             case "image-update":
-                selectedBlockAction.value = action.name;
                 selectedBlockIndex.value = index;
-                showSetBlockImage.value = true;
                 break;
             default:
                 break;
         }
     }
 
-    const showSetBlockImage = ref(false);
     function setBlockImage (image: Image) {
         blocks.value[selectedBlockIndex.value!].content = image;
         setTimeout(() => {
-            selectedBlockAction.value = "";
             selectedBlockIndex.value = null;
-            showSetBlockImage.value = false;
         }, 200)
     }
 
@@ -83,7 +77,6 @@ export function useBlocks() {
         blocks,
         selectedBlockIndex,
         setBlockAction,
-        showSetBlockImage,
         setBlockImage
     }
 }

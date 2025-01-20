@@ -1,14 +1,14 @@
 <template>
     <div v-if="block" class="block bg-white w-[100%] relative">
         <div class="block-navigation">
-            <span @click="$emit('action', { name: 'move', value: 'up' })"><IconArrowUp /></span>
-            <span class="handle cursor-move"><IconHandle /></span>
-            <span @click="$emit('action', { name: 'move', value: 'down' })"><IconArrowDown /></span>
+            <span title="Move Up" @click="$emit('action', { name: 'move', value: 'up' })"><IconArrowUp /></span>
+            <span title="Move"  class="handle cursor-move"><IconHandle /></span>
+            <span title="Move Down"  @click="$emit('action', { name: 'move', value: 'down' })"><IconArrowDown /></span>
         </div>
 
         <div class="block-actions">
-            <span @click="$emit('action', { name: 'duplicate', value: '' })"><IconDuplicate /></span>
-            <span @click="$emit('action', { name: 'remove', value: '' })"><IconDelete /></span>
+            <span title="Duplicate"  @click="$emit('action', { name: 'duplicate', value: '' })"><IconDuplicate /></span>
+            <span title="Delete"  @click="$emit('action', { name: 'remove', value: '' })"><IconDelete /></span>
         </div>
 
         <component

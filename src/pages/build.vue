@@ -13,7 +13,7 @@
                 <BlockView
                     v-for="(block, index) in blocks"
                     :key="block.id"
-                    :block="block" @action="setBlockAction($event, index)"
+                    :block="block" @action="interceptSetBlockAction($event, index)"
                     :style="{
                         padding: `${store.page.paddingY}px ${store.page.paddingX}px`,
                         fontFamily: `${store.page.font}, sans-serif`
@@ -48,22 +48,22 @@ import { useAppStore } from "@/stores/app.ts";
 const store = useAppStore();
 
 import { useBlocks } from "@/composables/useBlocks.ts";
-const { blocks, selectedBlockIndex, showSetBlockImage, setBlockAction, setBlockImage  } = useBlocks();
+const { blocks, selectedBlockIndex, setBlockAction, setBlockImage  } = useBlocks();
 
 const builderImagesModal = ref({
     visibility: false,
     selectedImage: null
 })
-
-watch(() => showSetBlockImage.value, () => {
-    if (showSetBlockImage.value) {
+function interceptSetBlockAction (action, index) {
+    setBlockAction(action, index);
+    if (action.name === 'image-update') {
         builderImagesModal.value.selectedImage = blocks.value[selectedBlockIndex.value].content;
         builderImagesModal.value.visibility = true;
     } else {
-        builderImagesModal.value.visibility = false;
         builderImagesModal.value.selectedImage = null;
+        builderImagesModal.value.visibility = false;
     }
-})
+}
 
 watch(() => blocks, () => {
     store.updatePageBlocks(blocks.value)

@@ -67,7 +67,7 @@ function update() {
 }
 
 watch(computedShow, () => {
-    if (computedShow && props.selectedImage.id) {
+    if (computedShow && props.selectedImage && props.selectedImage.id) {
         presetImage.value = props.selectedImage
     }
 })
