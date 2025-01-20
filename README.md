@@ -14,6 +14,10 @@ The project consists of two main folders as common to project built with Vue, `p
 - `assets` contains application styles
 
 - `components` contains application building blocks components.
+  - `__tests__` contains unit test file(s) for components
+
+- `composables` contains application core logic separated from UI.
+  - `__tests__` contains unit test file(s) for composables
 
 - `layouts` contains different layouts used for different pages.
 
