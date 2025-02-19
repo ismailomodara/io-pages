@@ -47,7 +47,7 @@ const save = () => {
     if (store.page.blocks.length === 0) {
         alert("No data to save yet!")
     } else {
-        console.log(store.page);
+        console.log(JSON.stringify(store.page));
         alert("Check console for JSON data.")
     }
 }
